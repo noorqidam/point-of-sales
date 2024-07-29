@@ -12,17 +12,7 @@ import { isAuthenticated } from "../middleware/isAuthenticated";
 export const user_route = express.Router();
 
 user_route.get("/", isAuthenticated, all_user);
-user_route.post(
-  "/create",
-  create_user_validation(),
-  isAuthenticated,
-  create_user
-);
+user_route.post("/", create_user_validation(), isAuthenticated, create_user);
 user_route.get("/get-user/:id", isAuthenticated, get_user);
-user_route.delete("/delete/:id", isAuthenticated, delete_user);
-user_route.put(
-  "/update/:id",
-  create_user_validation(),
-  isAuthenticated,
-  update_user
-);
+user_route.delete("/:id", isAuthenticated, delete_user);
+user_route.put("/:id", create_user_validation(), isAuthenticated, update_user);

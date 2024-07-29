@@ -9,7 +9,7 @@ import { isAuthenticated } from "../middleware/isAuthenticated";
 export const transaction_route = express.Router();
 
 transaction_route.post(
-  "/create",
+  "/",
   create_transaction_validation(),
   isAuthenticated,
   createTransactionController

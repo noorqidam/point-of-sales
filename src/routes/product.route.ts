@@ -11,12 +11,7 @@ import { isAuthenticated } from "../middleware/isAuthenticated";
 
 const router = express.Router();
 
-router.post(
-  "/create",
-  create_product_validation(),
-  isAuthenticated,
-  create_product
-);
+router.post("/", create_product_validation(), isAuthenticated, create_product);
 router.get("/:id", isAuthenticated, get_product);
 router.put("/:id", isAuthenticated, update_product);
 router.delete("/:id", isAuthenticated, delete_product);

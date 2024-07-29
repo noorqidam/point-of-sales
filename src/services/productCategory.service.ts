@@ -29,6 +29,8 @@ export const getAllProductCategories = async (
     categories,
     total,
     totalPages: Math.ceil(total / perPage),
+    currentPage: page,
+    perPage: perPage,
   };
 };
 

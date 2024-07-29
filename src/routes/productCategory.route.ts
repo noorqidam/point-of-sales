@@ -15,7 +15,7 @@ import { isAuthenticated } from "../middleware/isAuthenticated";
 const router = express.Router();
 
 router.post(
-  "/create",
+  "/",
   createProductCategoryValidation(),
   isAuthenticated,
   createProductCategoryController

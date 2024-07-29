@@ -63,9 +63,17 @@ export const createTransaction = async (req: Request, res: Response) => {
 
     res
       .status(201)
-      .json({ message: "Transaction created successfully", transaction });
+      .json({
+        message: { type: "success", text: "Transaction created successfully" },
+        data: { transaction },
+      });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error: error });
+    res
+      .status(500)
+      .json({
+        message: { type: "error", text: "Internal server error" },
+        error,
+      });
   }
 };
 
@@ -118,13 +126,12 @@ export const listTransactions = async (query: any) => {
 
   return {
     transactions: transactionsWithoutPassword,
-    meta: {
+    pagination: {
       page: pageNumber,
-      per_page: perPageNumber,
-      next_page: nextPage,
-      prev_page: prevPage,
-      last_page: lastPage,
-      total_rows: totalRows,
+      totalPage: lastPage,
+      totalItems: totalRows,
+      start: (pageNumber - 1) * perPageNumber,
+      pageSize: perPageNumber,
     },
   };
 };

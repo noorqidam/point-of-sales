@@ -12,9 +12,11 @@ export const createTransactionController = async (
     await createTransaction(req, res);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: { type: "error", text: error.message } });
     } else {
-      res.status(500).json({ message: "Internal server error" });
+      res
+        .status(500)
+        .json({ message: { type: "error", text: "Internal server error" } });
     }
   }
 };
@@ -24,12 +26,20 @@ export const listTransactionsController = async (
   res: Response
 ) => {
   try {
-    await listTransactions(req, res);
+    const result = await listTransactions(req.query);
+    res.status(200).json({
+      message: { type: "success", text: "Success" },
+      data: result.transactions,
+      pagination: result.pagination,
+    });
+    // await listTransactions(req, res);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: { type: "error", text: error.message } });
     } else {
-      res.status(500).json({ message: "Internal server error" });
+      res
+        .status(500)
+        .json({ message: { type: "error", text: "Internal server error" } });
     }
   }
 };

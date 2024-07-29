@@ -1,20 +1,32 @@
-import { Request, Response } from "express";
 import { User } from "../entities";
 import { Like } from "typeorm";
 import bcrypt from "bcrypt";
 
-export const s_create_user = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, birthDate, gender, password } = req.body;
+export const s_create_user = async (
+  firstName: string,
+  lastName: string,
+  email: string,
+  birthDate: Date,
+  gender: string,
+  password: string
+) => {
+  const existingUser = await User.findOneBy({ email });
+  if (existingUser) {
+    throw new Error("Email already in use");
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await User.save({
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    birthDate: birthDate,
-    gender: gender,
+  const newUser = User.create({
+    firstName,
+    lastName,
+    email,
+    birthDate,
+    gender,
     password: hashedPassword,
   });
+
+  await newUser.save();
   return newUser;
 };
 
