@@ -8,10 +8,17 @@ import {
 } from "./routes";
 import "./database/db";
 import { isAuthenticated } from "./middleware/isAuthenticated";
+import cors from "cors";
 const app = express();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "http://localhost:3002"],
+  })
+);
 
 app.use("/api/users", user_route);
 app.use("/api/auth", auth_route);
