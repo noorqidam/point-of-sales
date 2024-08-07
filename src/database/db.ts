@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import { createConnection } from "typeorm";
 import {
   Product,
@@ -7,13 +8,22 @@ import {
   User,
 } from "../entities";
 
+dotenv.config();
+
+const dbType = process.env.TYPE as any;
+const dbHost = process.env.HOST as string;
+const dbPort = parseInt(process.env.PORT || "3306", 10);
+const dbUsername = process.env.USERNAME as string;
+const dbPassword = process.env.PASSWORD as string;
+const dbName = process.env.DATABASE as string;
+
 export const db = createConnection({
-  type: "mysql",
-  host: "127.0.0.1",
-  port: 3306,
-  username: "root",
-  password: "",
-  database: "point_of_sales",
+  type: dbType,
+  host: dbHost,
+  port: dbPort,
+  username: dbUsername,
+  password: dbPassword,
+  database: dbName,
   entities: [Product, ProductCategory, Transaction, TransactionDetail, User],
   synchronize: true,
 })
