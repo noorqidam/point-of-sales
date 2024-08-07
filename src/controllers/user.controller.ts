@@ -29,7 +29,7 @@ export const all_user = async (req: Request, res: Response) => {
     };
     res.status(200).json({
       message: { type: "success", text: "Users retrieved successfully" },
-      data: { users },
+      data: users,
       pagination: pagination,
     });
   } catch (error) {
