@@ -22,7 +22,7 @@ router.post(
 );
 router.get("/", isAuthenticated, getAllProductCategoriesController);
 router.get("/:id", isAuthenticated, getProductCategoryByIdController);
-router.put(
+router.patch(
   "/:id",
   updateProductCategoryValidation(),
   isAuthenticated,
